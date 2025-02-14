@@ -1,0 +1,427 @@
+{
+	"info": {
+		"_postman_id": "4bfc1f18-86f0-4840-9c25-68acdfef4161",
+		"name": "M5V2 Prac1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37064111",
+		"_collection_link": "https://gabh88.postman.co/workspace/SDET~e62e22f9-546a-4615-ae06-ddbc8198d935/collection/37064111-4bfc1f18-86f0-4840-9c25-68acdfef4161?action=share&source=collection_link&creator=37064111"
+	},
+	"item": [
+		{
+			"name": "getActivities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/Activities",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Activities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addActivities",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 31,\r\n    \"title\": \"{{activity}}\",\r\n    \"dueDate\": \"2024-11-10T16:07:54.5312535+00:00\",\r\n    \"completed\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/Activities",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Activities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateActivties",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 29,\r\n    \"title\": \"Activity 029\",\r\n    \"dueDate\": \"2024-11-10T15:25:48.1829154+00:00\",\r\n    \"completed\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Activities/29",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Activities",
+						"29"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteActivties",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Activities/2",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Activities",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restful-booker-auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const token = pm.response.json().token\r",
+							"pm.collectionVariables.set(\"auth_token\",token)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/auth",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBookingIDs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooking",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/2048",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"2048"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBooking",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"Jim\",\n    \"lastname\" : \"Brown\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateBooking",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{auth_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/1",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PartialUpdateBooking",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{auth_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/1",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBooking",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{auth_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/1",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ping-HealthCheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/ping",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "https://fakerestapi.azurewebsites.net",
+			"type": "string"
+		},
+		{
+			"key": "activity",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": ""
+		}
+	]
+}

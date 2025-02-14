@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "af8c30d5-2863-4620-8f62-18dc09babe09",
+		"name": "M6V1_Prac1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37064111",
+		"_collection_link": "https://gabh88.postman.co/workspace/SDET~e62e22f9-546a-4615-ae06-ddbc8198d935/collection/37064111-af8c30d5-2863-4620-8f62-18dc09babe09?action=share&source=collection_link&creator=37064111"
+	},
+	"item": [
+		{
+			"name": "getActivities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Validate Status Code 200\", ()=> {\r",
+							"    const actualValue = pm.response.code;\r",
+							"    pm.expect(200).to.equal(actualValue);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Data From Body\", ()=> {\r",
+							"\r",
+							"    const expectedValue = \"Activity 1\";\r",
+							"    const actualValue = body[0].title;\r",
+							"    pm.expect(expectedValue).to.equal(actualValue);\r",
+							"});\r",
+							"\r",
+							"function randomNumberPicker(min, max){\r",
+							"    return Math.floor(Math.random() * (max-min) + min);\r",
+							"}\r",
+							"\r",
+							"const index = randomNumberPicker(1,30);\r",
+							"console.log(\"Index: \"+ index);\r",
+							"const title = body[index-1].title;\r",
+							"console.log(\"Title: \"+ title);\r",
+							"pm.collectionVariables.set(\"id\", index);\r",
+							"pm.collectionVariables.set(\"title_to_update\", title);\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/Activities",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Activities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addActivities_withValidData",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function createrandomString(length) {\r",
+							"    let result = '';\r",
+							"    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\r",
+							"    const charsLength = chars.length;\r",
+							"    let counter = 0;\r",
+							"    while (counter < length) {\r",
+							"      result += chars.charAt(Math.floor(Math.random() * charsLength));\r",
+							"      counter += 1;\r",
+							"    }\r",
+							"    return result;\r",
+							"}\r",
+							"\r",
+							"// console.log(createrandomString(5));\r",
+							"\r",
+							"const activityName = \"Activity \" + createrandomString(5);\r",
+							"pm.collectionVariables.set(\"activity_name\", activityName);\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate Status Code 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Data From Body\", ()=> {\r",
+							"\r",
+							"    const expectedValue = pm.collectionVariables.get(\"activity_name\");\r",
+							"    const body = pm.response.json();\r",
+							"    const actualValue = body.title;\r",
+							"    pm.expect(expectedValue).to.eql(actualValue);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"{{activity_name}}\",\r\n    \"dueDate\": \"2024-11-10T16:07:54.5312535+00:00\",\r\n    \"completed\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/Activities",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Activities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateActivties",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function createrandomString(length) {\r",
+							"    let result = '';\r",
+							"    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\r",
+							"    const charsLength = chars.length;\r",
+							"    let counter = 0;\r",
+							"    while (counter < length) {\r",
+							"      result += chars.charAt(Math.floor(Math.random() * charsLength));\r",
+							"      counter += 1;\r",
+							"    }\r",
+							"    return result;\r",
+							"}\r",
+							"const prevTitle = pm.collectionVariables.get(\"title_to_update\");\r",
+							"const updatedActivity = prevTitle+ \" Updated \"+ createrandomString(5);\r",
+							"pm.collectionVariables.set(\"new_title\", updatedActivity);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate Status Code 200\", ()=> {\r",
+							"    const actualValue = pm.response.code;\r",
+							"    pm.expect(200).to.equal(actualValue);\r",
+							"});\r",
+							"\r",
+							"const body = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Validate Updated Activity Title\", ()=> {\r",
+							"\r",
+							"    const expectedValue = pm.collectionVariables.get(\"new_title\");\r",
+							"    const actualValue = body.title;\r",
+							"    pm.expect(expectedValue).to.eql(actualValue);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{id}},\r\n    \"title\": \"{{new_title}}\",\r\n    \"dueDate\": \"2024-11-10T15:25:48.1829154+00:00\",\r\n    \"completed\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Activities/29",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Activities",
+						"29"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "https://fakerestapi.azurewebsites.net",
+			"type": "string"
+		},
+		{
+			"key": "activity",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": ""
+		},
+		{
+			"key": "activity_name",
+			"value": ""
+		},
+		{
+			"key": "title_to_update",
+			"value": ""
+		},
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "new_title",
+			"value": ""
+		}
+	]
+}
