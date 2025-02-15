@@ -80,7 +80,12 @@ This collection uses collection variables for dynamic values:
   - **Response Data Validation**: Compares actual API response data against expected values.
   - **Random Data Generation**: Generates dynamic activity names and IDs for testing.
 
-![M6V2_newman](./M6V2 CLI run using newman.PNG)
+## Execution Reports
+- **CLI Run Screenshot**:  
+  ![CLI Execution](M6V2_CLI_run_using_newman.PNG)
+
+- **HTML Report**:  
+  [View detailed Newman report](M6V1_Prac1-2024-11-11-13-13-14-110-0.html)
 
 ## Running the Collection in Postman
 1. Set the required collection variables.
